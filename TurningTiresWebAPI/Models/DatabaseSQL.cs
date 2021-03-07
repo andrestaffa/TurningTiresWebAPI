@@ -8,56 +8,209 @@ using System.Web;
 
 namespace TurningTiresWebAPI.Models
 {
+
+    interface IDatabase<T>
+    {
+        List<T> GetAll();
+        T GetById(long id);
+        T Add(T type);
+        void Delete(long id);
+        T Update(T type);
+    }
+
     public class Database
     {
 
-        private string connectionString = @"server=127.0.0.1;port=5000;uid=root;pwd=Scarfaceiscool1!;database=turningtiresdb";
-
-        // =========== Client Operations ===============
-
-        // GET COMMANDS
-
-        public List<Client> GetAllClients()
+        public class ClientDB : IDatabase<Client>
         {
-            using (IDbConnection connection = new MySqlConnection(connectionString))
+            private string connectionString = @"server=127.0.0.1;port=5000;uid=root;pwd=Scarfaceiscool1!;database=turningtiresdb";
+
+            public List<Client> GetAll()
             {
-                string sql = @"select * from client";
-                List<Client> clients = connection.Query<Client>(sql).ToList();
-                return clients;
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sql = @"select * from client";
+                    List<Client> clients = connection.Query<Client>(sql).ToList();
+                    return clients;
+                }
+            }
+
+            public Client GetById(long id)
+            {
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sql = @"select * from client where client_id=" + id;
+                    Client client = connection.Query<Client>(sql).FirstOrDefault();
+                    return client;
+                }
+            }
+
+            public Client Add(Client client)
+            {
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    client.client_id = (long)Math.Abs(Guid.NewGuid().GetHashCode());
+                    string sql = @"insert into client values(@client_id, @email, @first_name, @last_name, @address)";
+                    connection.Execute(sql, client);
+                    return client;
+                }
+            }
+
+            public void Delete(long id)
+            {
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sql = @"delete from client where client_id=" + id;
+                    connection.Execute(sql);
+                }
+            }
+
+            public Client Update(Client client)
+            {
+                throw new NotImplementedException();
             }
         }
 
-        public Client GetClientById(long id)
+        public class AppointmentDB : IDatabase<Appointment>
         {
-            using (IDbConnection connection = new MySqlConnection(connectionString))
+            private string connectionString = @"server=127.0.0.1;port=5000;uid=root;pwd=Scarfaceiscool1!;database=turningtiresdb";
+
+            public List<Appointment> GetAll()
             {
-                string sql = @"select * from client where client_id=" + id;
-                Client client = connection.Query<Client>(sql).FirstOrDefault();
-                return client;
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sql = @"select * from appointment";
+                    List<Appointment> appointments = connection.Query<Appointment>(sql).ToList();
+                    return appointments;
+                }
+            }
+
+            public Appointment GetById(long id)
+            {
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sql = @"select * from appointment where appointment_id=" + id;
+                    Appointment appointment = connection.Query<Appointment>(sql).FirstOrDefault();
+                    return appointment;
+                }
+            }
+
+            public List<Appointment> GetAppointmentsByClientId(long id)
+            {
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sql = @"select * from appointment where client_id=" + id;
+                    List<Appointment> appointment = connection.Query<Appointment>(sql).ToList();
+                    return appointment;
+                }
+            }
+
+            public Appointment Add(Appointment appointment)
+            {
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    appointment.appointment_id = (long)Math.Abs(Guid.NewGuid().GetHashCode());
+                    string sql = @"insert into appointment values(@appointment_id, @client_id, @date, @location, @type)";
+                    connection.Execute(sql, appointment);
+                    return appointment;
+                }
+            }
+
+            public void Delete(long id)
+            {
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sql = @"delete from appointment where appointment_id=" + id;
+                    connection.Execute(sql);
+                }
+            }
+
+            public void DeleteAppointmentByClientId(long id)
+            {
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sql = @"delete from appointment where client_id=" + id;
+                    connection.Execute(sql);
+                }
+            }
+
+            public Appointment Update(Appointment appointment)
+            {
+                throw new NotImplementedException();
+            }
+
+        }
+
+        public class VehicleDB : IDatabase<Vehicle>
+        {
+
+            private string connectionString = @"server=127.0.0.1;port=5000;uid=root;pwd=Scarfaceiscool1!;database=turningtiresdb";
+
+            public List<Vehicle> GetAll()
+            {
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sql = @"select * from vehicle";
+                    List<Vehicle> vehicles = connection.Query<Vehicle>(sql).ToList();
+                    return vehicles;
+                }
+            }
+
+            public Vehicle GetById(long id)
+            {
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sql =  @"select * from vehicle where vehicle_id=" + id;
+                    Vehicle vehicle = connection.Query<Vehicle>(sql).FirstOrDefault();
+                    return vehicle;
+                }
+            }
+
+            public List<Vehicle> GetVehiclesByClientId(long id)
+            {
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sql = @"select * from vehicle where client_id=" + id;
+                    List<Vehicle> vehicles = connection.Query<Vehicle>(sql).ToList();
+                    return vehicles;
+                }
+            }
+
+            public Vehicle Add(Vehicle vehicle)
+            {
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    vehicle.vehicle_id = (long)Math.Abs(Guid.NewGuid().GetHashCode());
+                    string sql = @"insert into vehicle values(@vehicle_id, @client_id, @model, @tire_size)";
+                    connection.Execute(sql, vehicle);
+                    return vehicle;
+                }
+            }
+
+            public void Delete(long id)
+            {
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sql = @"delete from vehicle where vehicle_id=" + id;
+                    connection.Execute(sql);
+                }
+            }
+
+            public void DeleteVehicleByClientId(long id)
+            {
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sql = @"delete from vehicle where client_id=" + id;
+                    connection.Execute(sql);
+                }
+            }
+
+            public Vehicle Update(Vehicle vehicle)
+            {
+                throw new NotImplementedException();
             }
         }
 
-
-        // POSTING, UPDATING and DELETING COMMANDS
-
-        public void AddClient(Client client)
-        {
-            using (IDbConnection connection = new MySqlConnection(connectionString))
-            {
-                client.client_id = (long)Math.Abs(Guid.NewGuid().GetHashCode());
-                string sql = @"insert into client values(@client_id, @email, @first_name, @last_name, @address)";
-                connection.Execute(sql, client);
-            }
-        }
-
-        public void DeleteClient(long id)
-        {
-            using (IDbConnection connection = new MySqlConnection(connectionString))
-            {
-                string sql = @"delete from client where client_id=" + id;
-                connection.Execute(sql);
-            }
-        }
 
     }
 }

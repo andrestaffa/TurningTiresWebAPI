@@ -6,13 +6,12 @@ using System.Web;
 
 namespace TurningTiresWebAPI.Models
 {
-    public class Appointment
+    public class Vehicle
     {
         [Key]
-        public long appointment_id { get; set; }
+        public long vehicle_id { get; set; }
         public long client_id { get; set; }
-        public string date { get; set; }
-        public string location { get; set; }
-        public string type { get; set; }
+        public string model { get; set; }
+        public int tire_size { get; set; }
     }
 }
