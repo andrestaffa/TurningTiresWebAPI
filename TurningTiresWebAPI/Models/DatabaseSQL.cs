@@ -138,7 +138,6 @@ namespace TurningTiresWebAPI.Models
             {
                 throw new NotImplementedException();
             }
-
         }
 
         public class VehicleDB : IDatabase<Vehicle>
@@ -206,6 +205,75 @@ namespace TurningTiresWebAPI.Models
             }
 
             public Vehicle Update(Vehicle vehicle)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public class TireDB : IDatabase<Tire>
+        {
+            private string connectionString = @"server=127.0.0.1;port=5000;uid=root;pwd=Scarfaceiscool1!;database=turningtiresdb";
+
+            public List<Tire> GetAll()
+            {
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sql = @"select * from tire";
+                    List<Tire> tires = connection.Query<Tire>(sql).ToList();
+                    return tires;
+                }
+            }
+
+            public Tire GetById(long id)
+            {
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sql = @"select * from tire where tire_id=" + id;
+                    Tire tire = connection.Query<Tire>(sql).FirstOrDefault();
+                    return tire;
+                }
+            }
+
+            public List<Tire> GetTireByVehicleId(long id)
+            {
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sql = @"select * from tire where vehicle_id=" + id;
+                    List<Tire> tires = connection.Query<Tire>(sql).ToList();
+                    return tires;
+                }
+            }
+
+            public Tire Add(Tire tire)
+            {
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    tire.tire_id = (long)Math.Abs(Guid.NewGuid().GetHashCode());
+                    string sql = @"insert into tire values(@tire_id, @vehicle_id, @tire_size, @type, @tread_percentage)";
+                    connection.Execute(sql, tire);
+                    return tire;
+                }
+            }
+
+            public void Delete(long id)
+            {
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sql = @"delete from tire where tire_id=" + id;
+                    connection.Execute(sql);
+                }
+            }
+
+            public void DeleteTireByVehicleId(long id)
+            {
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sql = @"delete from tire where vehicle_id=" + id;
+                    connection.Execute(sql);
+                }
+            }
+
+            public Tire Update(Tire tire)
             {
                 throw new NotImplementedException();
             }

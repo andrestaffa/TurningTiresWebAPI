@@ -205,6 +205,7 @@
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TireController.cs" />
     <Compile Include="Controllers\VehicleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -212,6 +213,7 @@
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\DatabaseSQL.cs" />
+    <Compile Include="Models\Tire.cs" />
     <Compile Include="Models\Vehicle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
