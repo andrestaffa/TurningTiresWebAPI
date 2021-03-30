@@ -109,3 +109,4 @@ C:\Users\andre\source\repos\TurningTiresWebAPI\TurningTiresWebAPI\bin\System.Buf
 C:\Users\andre\source\repos\TurningTiresWebAPI\TurningTiresWebAPI\bin\System.Memory.xml
 C:\Users\andre\source\repos\TurningTiresWebAPI\TurningTiresWebAPI\bin\System.Numerics.Vectors.xml
 C:\Users\andre\source\repos\TurningTiresWebAPI\TurningTiresWebAPI\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\andre\source\repos\TurningTiresWebAPI\TurningTiresWebAPI\bin\Documentation.xml

@@ -23,13 +23,13 @@ namespace TurningTiresWebAPI.Models
 
         public class ClientDB : IDatabase<Client>
         {
-            private string connectionString = @"server=127.0.0.1;port=5000;uid=root;pwd=Scarfaceiscool1!;database=turningtiresdb";
+            private string connectionString = @"server=sql3.freemysqlhosting.net;port=3306;uid=sql3402161;pwd=wszULCLN5G;database=sql3402161";
 
             public List<Client> GetAll()
             {
                 using (IDbConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sql = @"select * from client";
+                    string sql = @"call GetAllClients()";
                     List<Client> clients = connection.Query<Client>(sql).ToList();
                     return clients;
                 }
@@ -39,7 +39,7 @@ namespace TurningTiresWebAPI.Models
             {
                 using (IDbConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sql = @"select * from client where client_id=" + id;
+                    string sql = @"call GetClientById(" + id + ")";
                     Client client = connection.Query<Client>(sql).FirstOrDefault();
                     return client;
                 }
@@ -60,7 +60,7 @@ namespace TurningTiresWebAPI.Models
             {
                 using (IDbConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sql = @"delete from client where client_id=" + id;
+                    string sql = @"call DeleteClientById(" + id + ")";
                     connection.Execute(sql);
                 }
             }
@@ -73,13 +73,13 @@ namespace TurningTiresWebAPI.Models
 
         public class AppointmentDB : IDatabase<Appointment>
         {
-            private string connectionString = @"server=127.0.0.1;port=5000;uid=root;pwd=Scarfaceiscool1!;database=turningtiresdb";
+            private string connectionString = @"server=sql3.freemysqlhosting.net;port=3306;uid=sql3402161;pwd=wszULCLN5G;database=sql3402161";
 
             public List<Appointment> GetAll()
             {
                 using (IDbConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sql = @"select * from appointment";
+                    string sql = @"call GetAllAppointments()";
                     List<Appointment> appointments = connection.Query<Appointment>(sql).ToList();
                     return appointments;
                 }
@@ -89,7 +89,7 @@ namespace TurningTiresWebAPI.Models
             {
                 using (IDbConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sql = @"select * from appointment where appointment_id=" + id;
+                    string sql = @"call GetAppointmentById(" + id + ")";
                     Appointment appointment = connection.Query<Appointment>(sql).FirstOrDefault();
                     return appointment;
                 }
@@ -99,7 +99,7 @@ namespace TurningTiresWebAPI.Models
             {
                 using (IDbConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sql = @"select * from appointment where client_id=" + id;
+                    string sql = @"call GetAppointmentByClientId(" + id + ")";
                     List<Appointment> appointment = connection.Query<Appointment>(sql).ToList();
                     return appointment;
                 }
@@ -120,7 +120,7 @@ namespace TurningTiresWebAPI.Models
             {
                 using (IDbConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sql = @"delete from appointment where appointment_id=" + id;
+                    string sql = @"call DeleteAppointmentById(" + id + ")";
                     connection.Execute(sql);
                 }
             }
@@ -129,7 +129,7 @@ namespace TurningTiresWebAPI.Models
             {
                 using (IDbConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sql = @"delete from appointment where client_id=" + id;
+                    string sql = @"call DeleteAppointmentByClientId(" + id + ")";
                     connection.Execute(sql);
                 }
             }
@@ -143,13 +143,13 @@ namespace TurningTiresWebAPI.Models
         public class VehicleDB : IDatabase<Vehicle>
         {
 
-            private string connectionString = @"server=127.0.0.1;port=5000;uid=root;pwd=Scarfaceiscool1!;database=turningtiresdb";
+            private string connectionString = @"server=sql3.freemysqlhosting.net;port=3306;uid=sql3402161;pwd=wszULCLN5G;database=sql3402161";
 
             public List<Vehicle> GetAll()
             {
                 using (IDbConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sql = @"select * from vehicle";
+                    string sql = @"call GetAllVehicles()";
                     List<Vehicle> vehicles = connection.Query<Vehicle>(sql).ToList();
                     return vehicles;
                 }
@@ -159,7 +159,7 @@ namespace TurningTiresWebAPI.Models
             {
                 using (IDbConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sql =  @"select * from vehicle where vehicle_id=" + id;
+                    string sql = @"call GetVehicleById(" + id + ")";
                     Vehicle vehicle = connection.Query<Vehicle>(sql).FirstOrDefault();
                     return vehicle;
                 }
@@ -169,7 +169,7 @@ namespace TurningTiresWebAPI.Models
             {
                 using (IDbConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sql = @"select * from vehicle where client_id=" + id;
+                    string sql = @"call GetVehicleByClientId(" + id + ")";
                     List<Vehicle> vehicles = connection.Query<Vehicle>(sql).ToList();
                     return vehicles;
                 }
@@ -190,7 +190,7 @@ namespace TurningTiresWebAPI.Models
             {
                 using (IDbConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sql = @"delete from vehicle where vehicle_id=" + id;
+                    string sql = @"call DeleteVehicleById(" + id + ")";
                     connection.Execute(sql);
                 }
             }
@@ -199,7 +199,7 @@ namespace TurningTiresWebAPI.Models
             {
                 using (IDbConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sql = @"delete from vehicle where client_id=" + id;
+                    string sql = @"call DeleteVehicleByClientId(" + id + ")";
                     connection.Execute(sql);
                 }
             }
@@ -212,13 +212,13 @@ namespace TurningTiresWebAPI.Models
 
         public class TireDB : IDatabase<Tire>
         {
-            private string connectionString = @"server=127.0.0.1;port=5000;uid=root;pwd=Scarfaceiscool1!;database=turningtiresdb";
+            private string connectionString = @"server=sql3.freemysqlhosting.net;port=3306;uid=sql3402161;pwd=wszULCLN5G;database=sql3402161";
 
             public List<Tire> GetAll()
             {
                 using (IDbConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sql = @"select * from tire";
+                    string sql = @"call GetAllTires()";
                     List<Tire> tires = connection.Query<Tire>(sql).ToList();
                     return tires;
                 }
@@ -228,7 +228,7 @@ namespace TurningTiresWebAPI.Models
             {
                 using (IDbConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sql = @"select * from tire where tire_id=" + id;
+                    string sql = @"call GetTireById(" + id + ")";
                     Tire tire = connection.Query<Tire>(sql).FirstOrDefault();
                     return tire;
                 }
@@ -238,7 +238,7 @@ namespace TurningTiresWebAPI.Models
             {
                 using (IDbConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sql = @"select * from tire where vehicle_id=" + id;
+                    string sql = @"call GetTireByVehicleId(" + id + ")";
                     List<Tire> tires = connection.Query<Tire>(sql).ToList();
                     return tires;
                 }
@@ -259,7 +259,7 @@ namespace TurningTiresWebAPI.Models
             {
                 using (IDbConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sql = @"delete from tire where tire_id=" + id;
+                    string sql = @"call DeleteTireById(" + id + ")";
                     connection.Execute(sql);
                 }
             }
@@ -268,7 +268,7 @@ namespace TurningTiresWebAPI.Models
             {
                 using (IDbConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sql = @"delete from tire where vehicle_id=" + id;
+                    string sql = @"call DeleteTireByVehicleId(" + id + ")";
                     connection.Execute(sql);
                 }
             }

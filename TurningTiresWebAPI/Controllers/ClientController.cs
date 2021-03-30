@@ -8,15 +8,25 @@ using TurningTiresWebAPI.Models;
 
 namespace TurningTiresWebAPI.Controllers
 {
+    /// <summary>
+    /// Retrieve and post various endpoints about client information. This contains all data revolving around clients in the database. 
+    /// </summary>
     public class ClientController : ApiController
     {
         private readonly Database.ClientDB db;
 
+        /// <summary>
+        /// ClientController Constructor. Instantiate client database.
+        /// </summary>
         public ClientController()
         {
             db = new Database.ClientDB();
         }
 
+        /// <summary>
+        /// Get all clients currently in the database.
+        /// </summary>
+        /// <returns>List of client objects.</returns>
         [HttpGet]
         [Route("api/clients/all")]
         public List<Client> GetAllClients()
@@ -24,6 +34,11 @@ namespace TurningTiresWebAPI.Controllers
             return db.GetAll();
         }
 
+        /// <summary>
+        /// Get a specific client provided their unique client id.
+        /// </summary>
+        /// <param name="id">The unique identifier for this client.</param>
+        /// <returns>A single client object.</returns>
         [HttpGet]
         [Route("api/clients/{id}")]
         public Client GetClientByID(long id)
@@ -31,6 +46,14 @@ namespace TurningTiresWebAPI.Controllers
             return db.GetById(id);
         }
 
+        /// <summary>
+        /// Create a client to be stored in the database.
+        /// </summary>
+        /// <param name="email">The email address of the client.</param>
+        /// <param name="first_name">The first name of the client.</param>
+        /// <param name="last_name">The last name of the client.</param>
+        /// <param name="address">The current residing address of the client.</param>
+        /// <returns>The single client object that was created. Null otherwise.</returns>
         [HttpPost]
         [Route("api/clients/sign_up")]
         public Client AddClient(string email, string first_name, string last_name, string address)
@@ -44,6 +67,10 @@ namespace TurningTiresWebAPI.Controllers
             return client;
         }
 
+        /// <summary>
+        /// Delete client in the database provided their unique client id.
+        /// </summary>
+        /// <param name="id">The unique identifier for this client.</param>
         [HttpDelete]
         [Route("api/clients/delete/{id}")]
         public void DeleteClient(long id)
@@ -51,7 +78,11 @@ namespace TurningTiresWebAPI.Controllers
             db.Delete(id);
         }
 
+        
         // NEEDS IMPLEMENTAION
+        /// <summary>
+        /// Update client information.
+        /// </summary>
         [HttpPut]
         [Route("api/clients/update_client")]
         public void UpdateAppointment()
