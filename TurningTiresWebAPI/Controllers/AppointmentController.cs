@@ -101,16 +101,25 @@ namespace TurningTiresWebAPI.Controllers
             db.DeleteAppointmentByClientId(id);
         }
 
-
-        // NEEDS IMPLEMENTAION
         /// <summary>
-        /// Update appointment information.
+        /// Update an existing appointment provided the unique identifier of the appointment.
         /// </summary>
+        /// <param name="appointment_id">The unique identifier for this appointment.</param>
+        /// <param name="date">The date when the appointment will take place.</param>
+        /// <param name="location">The location where the appointment will take place.</param>
+        /// <param name="type">The type of appointment</param>
+        /// <returns>The updated appointment. Null otherwise.</returns>
         [HttpPut]
         [Route("api/appointments/update_appointment")]
-        public void UpdateAppointment()
+        public Appointment UpdateAppointment(long appointment_id, string date, string location, string type)
         {
-
+            Appointment appointment = new Appointment();
+            appointment.appointment_id = appointment_id;
+            appointment.date = date;
+            appointment.location = location;
+            appointment.type = type;
+            db.Update(appointment);
+            return appointment;
         }
 
     }

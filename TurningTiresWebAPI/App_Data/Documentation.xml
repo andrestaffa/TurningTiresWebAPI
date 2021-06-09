@@ -533,10 +533,15 @@
             </summary>
             <param name="id">The unique client id.</param>
         </member>
-        <member name="M:TurningTiresWebAPI.Controllers.AppointmentController.UpdateAppointment">
+        <member name="M:TurningTiresWebAPI.Controllers.AppointmentController.UpdateAppointment(System.Int64,System.String,System.String,System.String)">
             <summary>
-            Update appointment information.
+            Update an existing appointment provided the unique identifier of the appointment.
             </summary>
+            <param name="appointment_id">The unique identifier for this appointment.</param>
+            <param name="date">The date when the appointment will take place.</param>
+            <param name="location">The location where the appointment will take place.</param>
+            <param name="type">The type of appointment</param>
+            <returns>The updated appointment. Null otherwise.</returns>
         </member>
         <member name="T:TurningTiresWebAPI.Controllers.ClientController">
             <summary>
@@ -561,11 +566,12 @@
             <param name="id">The unique identifier for this client.</param>
             <returns>A single client object.</returns>
         </member>
-        <member name="M:TurningTiresWebAPI.Controllers.ClientController.AddClient(System.String,System.String,System.String,System.String)">
+        <member name="M:TurningTiresWebAPI.Controllers.ClientController.AddClient(System.String,System.String,System.String,System.String,System.String)">
             <summary>
             Create a client to be stored in the database.
             </summary>
             <param name="email">The email address of the client.</param>
+            <param name="password">The encrypted password of the client.</param>
             <param name="first_name">The first name of the client.</param>
             <param name="last_name">The last name of the client.</param>
             <param name="address">The current residing address of the client.</param>
@@ -577,10 +583,16 @@
             </summary>
             <param name="id">The unique identifier for this client.</param>
         </member>
-        <member name="M:TurningTiresWebAPI.Controllers.ClientController.UpdateAppointment">
+        <member name="M:TurningTiresWebAPI.Controllers.ClientController.Update(System.Int64,System.String,System.String,System.String,System.String)">
             <summary>
-            Update client information.
+            Update an existing client provided the unique identifier of the client.
             </summary>
+            <param name="client_id">The unique identifier for this client.</param>
+            <param name="email">The email address of the client.</param>
+            <param name="first_name">The first name of the client.</param>
+            <param name="last_name">The last name of the client.</param>
+            <param name="address">The current residing address of the client.</param>
+            <returns>The updated client. Null otherwise.</returns>
         </member>
         <member name="T:TurningTiresWebAPI.Controllers.TireController">
             <summary>
@@ -626,7 +638,7 @@
             <summary>
             Delete tire in the database provided the unique tire id.
             </summary>
-            <param name="id">The unique identifier for this tire</param>
+            <param name="id">The unique identifier for this tire.</param>
         </member>
         <member name="M:TurningTiresWebAPI.Controllers.TireController.DeleteTireByVehicleId(System.Int64)">
             <summary>
@@ -634,10 +646,15 @@
             </summary>
             <param name="id">The unique vehicle id.</param>
         </member>
-        <member name="M:TurningTiresWebAPI.Controllers.TireController.UpdateTire">
+        <member name="M:TurningTiresWebAPI.Controllers.TireController.Update(System.Int64,System.Int32,System.String,System.Int32)">
             <summary>
-            Update tire information.
+            Update an existing tire provided the unique identifier of the tire.
             </summary>
+            <param name="tire_id">The unique identifier for this tire</param>
+            <param name="tire_size">The tire size of the registered vehicle.</param>
+            <param name="type">The type of tire of the registered vehicle.</param>
+            <param name="tread_percentage">The tread percentage of all four tires of the registered vehicle.</param>
+            <returns>The updated tire. Null otherwise.</returns>
         </member>
         <member name="T:TurningTiresWebAPI.Controllers.VehicleController">
             <summary>
@@ -690,10 +707,14 @@
             </summary>
             <param name="id">The unique client id.</param>
         </member>
-        <member name="M:TurningTiresWebAPI.Controllers.VehicleController.UpdateVehicle">
+        <member name="M:TurningTiresWebAPI.Controllers.VehicleController.Update(System.Int64,System.String,System.Int32)">
             <summary>
-            Update vehicle information.
+            Update an existing vehicle provided the unique identifier of the vehicle.
             </summary>
+            <param name="vehicle_id">The unique identifier for this vehicle.</param>
+            <param name="model">The make and model of the vehicle.</param>
+            <param name="tire_size">The tire size of the vehicle.</param>
+            <returns>The updated vehicle. Null otherwise.</returns>
         </member>
         <member name="T:TurningTiresWebAPI.Models.Appointment">
             <summary>
@@ -738,6 +759,11 @@
         <member name="P:TurningTiresWebAPI.Models.Client.email">
             <summary>
             The email address of the client.
+            </summary>
+        </member>
+        <member name="P:TurningTiresWebAPI.Models.Client.password">
+            <summary>
+            The encrypted password of the client.
             </summary>
         </member>
         <member name="P:TurningTiresWebAPI.Models.Client.first_name">

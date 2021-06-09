@@ -50,16 +50,18 @@ namespace TurningTiresWebAPI.Controllers
         /// Create a client to be stored in the database.
         /// </summary>
         /// <param name="email">The email address of the client.</param>
+        /// <param name="password">The encrypted password of the client.</param>
         /// <param name="first_name">The first name of the client.</param>
         /// <param name="last_name">The last name of the client.</param>
         /// <param name="address">The current residing address of the client.</param>
         /// <returns>The single client object that was created. Null otherwise.</returns>
         [HttpPost]
         [Route("api/clients/sign_up")]
-        public Client AddClient(string email, string first_name, string last_name, string address)
+        public Client AddClient(string email, string password, string first_name, string last_name, string address)
         {
             Client client = new Client();
             client.email = email;
+            client.password = System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(password));
             client.first_name = first_name;
             client.last_name = last_name;
             client.address = address;
@@ -78,16 +80,29 @@ namespace TurningTiresWebAPI.Controllers
             db.Delete(id);
         }
 
-        
-        // NEEDS IMPLEMENTAION
         /// <summary>
-        /// Update client information.
+        /// Update an existing client provided the unique identifier of the client.
         /// </summary>
+        /// <param name="client_id">The unique identifier for this client.</param>
+        /// <param name="email">The email address of the client.</param>
+        /// <param name="first_name">The first name of the client.</param>
+        /// <param name="last_name">The last name of the client.</param>
+        /// <param name="address">The current residing address of the client.</param>
+        /// <returns>The updated client. Null otherwise.</returns>
+
         [HttpPut]
         [Route("api/clients/update_client")]
-        public void UpdateAppointment()
+        public Client Update(long client_id, string email, string first_name, string last_name, string address)
         {
-
+            Client client = new Client();
+            client.client_id = client_id;
+            client.email = email;
+            client.first_name = first_name;
+            client.last_name = last_name;
+            client.address = address;
+            db.Update(client);
+            return client;
         }
+
     }
 }

@@ -82,7 +82,7 @@ namespace TurningTiresWebAPI.Controllers
         /// <summary>
         /// Delete tire in the database provided the unique tire id.
         /// </summary>
-        /// <param name="id">The unique identifier for this tire</param>
+        /// <param name="id">The unique identifier for this tire.</param>
         [HttpDelete]
         [Route("api/tires/delete_tire/{id}")]
         public void DeleteTireById(long id)
@@ -101,15 +101,25 @@ namespace TurningTiresWebAPI.Controllers
             db.DeleteTireByVehicleId(id);
         }
 
-        // NEEDS IMPLEMENTAION
         /// <summary>
-        /// Update tire information.
+        /// Update an existing tire provided the unique identifier of the tire.
         /// </summary>
+        /// <param name="tire_id">The unique identifier for this tire</param>
+        /// <param name="tire_size">The tire size of the registered vehicle.</param>
+        /// <param name="type">The type of tire of the registered vehicle.</param>
+        /// <param name="tread_percentage">The tread percentage of all four tires of the registered vehicle.</param>
+        /// <returns>The updated tire. Null otherwise.</returns>
         [HttpPut]
         [Route("api/tires/update_tire")]
-        public void UpdateTire()
+        public Tire Update(long tire_id, int tire_size, string type, int tread_percentage)
         {
-
+            Tire tire = new Tire();
+            tire.tire_id = tire_id;
+            tire.tire_size = tire_size;
+            tire.type = type;
+            tire.tread_percentage = tread_percentage;
+            db.Update(tire);
+            return tire;
         }
 
     }

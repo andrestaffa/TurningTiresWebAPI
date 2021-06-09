@@ -21,6 +21,10 @@ namespace TurningTiresWebAPI.Models
         /// </summary>
         public string email { get; set; }
         /// <summary>
+        /// The encrypted password of the client.
+        /// </summary>
+        public string password { get; set; }
+        /// <summary>
         /// The first name of the client.
         /// </summary>
         public string first_name { get; set; }

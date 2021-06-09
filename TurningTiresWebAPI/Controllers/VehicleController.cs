@@ -99,16 +99,23 @@ namespace TurningTiresWebAPI.Controllers
             db.DeleteVehicleByClientId(id);
         }
 
-
-        // NEEDS IMPLEMENTAION
         /// <summary>
-        /// Update vehicle information.
+        /// Update an existing vehicle provided the unique identifier of the vehicle.
         /// </summary>
+        /// <param name="vehicle_id">The unique identifier for this vehicle.</param>
+        /// <param name="model">The make and model of the vehicle.</param>
+        /// <param name="tire_size">The tire size of the vehicle.</param>
+        /// <returns>The updated vehicle. Null otherwise.</returns>
         [HttpPut]
         [Route("api/vehicles/update_vehicle")]
-        public void UpdateVehicle()
+        public Vehicle Update(long vehicle_id, string model, int tire_size)
         {
-
+            Vehicle vehicle = new Vehicle();
+            vehicle.vehicle_id = vehicle_id;
+            vehicle.model = model;
+            vehicle.tire_size = tire_size;
+            db.Update(vehicle);
+            return vehicle;
         }
 
     }

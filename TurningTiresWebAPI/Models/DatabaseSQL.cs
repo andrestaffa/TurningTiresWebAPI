@@ -50,7 +50,7 @@ namespace TurningTiresWebAPI.Models
                 using (IDbConnection connection = new MySqlConnection(connectionString))
                 {
                     client.client_id = (long)Math.Abs(Guid.NewGuid().GetHashCode());
-                    string sql = @"insert into client values(@client_id, @email, @first_name, @last_name, @address)";
+                    string sql = @"insert into client values(@client_id, @email, @password, @first_name, @last_name, @address)";
                     connection.Execute(sql, client);
                     return client;
                 }
@@ -67,7 +67,12 @@ namespace TurningTiresWebAPI.Models
 
             public Client Update(Client client)
             {
-                throw new NotImplementedException();
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sql = @"update client set email=@email, first_name=@first_name, last_name=@last_name, address=@address where client_id=@client_id";
+                    connection.Execute(sql, client);
+                    return client;
+                }
             }
         }
 
@@ -136,7 +141,12 @@ namespace TurningTiresWebAPI.Models
 
             public Appointment Update(Appointment appointment)
             {
-                throw new NotImplementedException();
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sql = @"update appointment set date=@date, location=@location, type=@type where appointment_id=@appointment_id";
+                    connection.Execute(sql, appointment);
+                    return appointment;
+                }
             }
         }
 
@@ -206,7 +216,12 @@ namespace TurningTiresWebAPI.Models
 
             public Vehicle Update(Vehicle vehicle)
             {
-                throw new NotImplementedException();
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sql = @"update vehicle set model=@model, tire_size=@tire_size where vehicle_id=@vehicle_id";
+                    connection.Execute(sql, vehicle);
+                    return vehicle;
+                }
             }
         }
 
@@ -275,7 +290,12 @@ namespace TurningTiresWebAPI.Models
 
             public Tire Update(Tire tire)
             {
-                throw new NotImplementedException();
+                using (IDbConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sql = @"update tire set tire_size=@tire_size, type=@type, tread_percentage=@tread_percentage where tire_id=@tire_id";
+                    connection.Execute(sql, tire);
+                    return tire;
+                }
             }
         }
 
